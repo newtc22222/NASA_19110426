@@ -105,10 +105,23 @@ describe("DELETE /launches/:id", function () {
                 }
                 return done();
             })
-    })
+    });
     it("delete lauches 100 again- responds with json", function (done) {
         request(app)
             .delete('/launches/100')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .end((err, res) => {
+                if (err) {
+                    return done(err);
+                }
+                return done();
+            })
+    });
+    it("delete lauches with id not exists", function (done) {
+        request(app)
+            .delete('/launches/101')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(404)
