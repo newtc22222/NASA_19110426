@@ -5,7 +5,7 @@ const app = require('./app');
 describe("GET /planets", function () {
     it("responds with json", function (done) {
         request(app)
-            .get('/planets')
+            .get('/v1/planets')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200)
@@ -21,7 +21,7 @@ describe("GET /planets", function () {
 describe("GET /launches", function () {
     it("responds with json", function (done) {
         request(app)
-            .get('/launches')
+            .get('/v1/launches')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200)
@@ -36,7 +36,7 @@ describe("GET /launches", function () {
 describe("POST /launches", function () {
     it("responds with json", function (done) {
         request(app)
-            .post('/launches')
+            .post('/v1/launches')
             .send({
                 "mission": "ZTM155",
                 "rocket": "ZTM Experimental IS1",
@@ -55,7 +55,7 @@ describe("POST /launches", function () {
     })
     it("responds error - invalid date", function (done) {
         request(app)
-            .post('/launches')
+            .post('/v1/launches')
             .send({
                 "mission": "ZTM155",
                 "rocket": "ZTM Experimental IS1",
@@ -74,7 +74,7 @@ describe("POST /launches", function () {
     })
     it("responds error - missing data", function (done) {
         request(app)
-            .post('/launches')
+            .post('/v1/launches')
             .send({
                 "mission": "",
                 "rocket": "ZTM Experimental IS1",
@@ -95,7 +95,7 @@ describe("POST /launches", function () {
 describe("DELETE /launches/:id", function () {
     it("delete lauches 100 - responds with json", function (done) {
         request(app)
-            .delete('/launches/100')
+            .delete('/v1/launches/100')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200)
@@ -108,7 +108,7 @@ describe("DELETE /launches/:id", function () {
     });
     it("delete lauches 100 again- responds with json", function (done) {
         request(app)
-            .delete('/launches/100')
+            .delete('/v1/launches/100')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(404)
@@ -121,7 +121,7 @@ describe("DELETE /launches/:id", function () {
     });
     it("delete lauches with id not exists", function (done) {
         request(app)
-            .delete('/launches/101')
+            .delete('/v1/launches/101')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(404)
@@ -137,7 +137,7 @@ describe("DELETE /launches/:id", function () {
 describe("GET /*", function () {
     it("return html page", function (done) {
         request(app)
-            .get('/abc')
+            .get('/v1/abc')
             .expect('Content-Type', 'text/html; charset=UTF-8')
             .expect(200)
             .end((err, res) => {
